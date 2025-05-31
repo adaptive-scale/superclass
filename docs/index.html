@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superclass - AI-Powered Document Classification</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --secondary-bg: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--secondary-bg);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .feature {
+            background: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .cta {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .cta:hover {
+            opacity: 0.9;
+        }
+
+        .docs-section {
+            margin: 3rem 0;
+        }
+
+        code {
+            background: var(--secondary-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: var(--secondary-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            background: var(--secondary-bg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Superclass</h1>
+                <p class="subtitle">AI-Powered Document Classification System</p>
+                <a href="https://github.com/adaptive-scale/superclass" class="cta">View on GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="features">
+            <div class="feature">
+                <h3>Multi-Format Support</h3>
+                <ul>
+                    <li>PDF documents</li>
+                    <li>Microsoft Office files</li>
+                    <li>Images with OCR</li>
+                    <li>SVG files</li>
+                    <li>HTML and Markdown</li>
+                    <li>And more...</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>AI Classification</h3>
+                <ul>
+                    <li>OpenAI GPT models</li>
+                    <li>Anthropic Claude</li>
+                    <li>Azure OpenAI</li>
+                    <li>Custom providers</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>Easy Deployment</h3>
+                <ul>
+                    <li>Docker support</li>
+                    <li>Multi-arch builds</li>
+                    <li>RESTful API</li>
+                    <li>CLI interface</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="docs-section">
+            <h2>Quick Start</h2>
+            <p>Pull and run using Docker:</p>
+            <pre><code>docker pull ghcr.io/adaptive-scale/superclass:latest
+
+docker run -p 8083:8083 \
+  -e OPENAI_API_KEY=your_openai_key \
+  ghcr.io/adaptive-scale/superclass:latest</code></pre>
+            
+            <h2>API Usage</h2>
+            <p>Classify a document:</p>
+            <pre><code>curl -X POST \
+  -F "file=@/path/to/document.pdf" \
+  http://localhost:8083/classify</code></pre>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Made with ❤️ by <a href="https://github.com/adaptive-scale">Adaptive Scale</a></p>
+        </div>
+    </footer>
+</body>
+</html> 
