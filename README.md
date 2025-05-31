@@ -128,7 +128,7 @@ Environment variables:
 Classify a document:
 ```bash
 # Basic classification
-curl -X POST -F "file=@/path/to/document.pdf" http://localhost:8080/classify
+curl -X POST -F "file=@/path/to/document.pdf" http://localhost:8083/classify
 
 ```
 
@@ -146,7 +146,7 @@ Response:
 #### GET /health
 Health check endpoint:
 ```bash
-curl http://localhost:8080/health
+curl http://localhost:8083/health
 ```
 
 ## Configuration
