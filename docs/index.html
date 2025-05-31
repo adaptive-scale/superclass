@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Superclass - AI-Powered Document Classification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2563eb;
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
             --text-color: #1f2937;
             --bg-color: #ffffff;
-            --secondary-bg: #f3f4f6;
+            --secondary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --code-bg: #1f2937;
+            --code-text: #e5e7eb;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --primary-dark: #3b82f6;
+            --text-color: #f3f4f6;
+            --bg-color: #111827;
+            --secondary-bg: #1f2937;
+            --card-bg: #1f2937;
+            --border-color: #374151;
+            --code-bg: #0f172a;
+            --code-text: #e5e7eb;
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -23,6 +44,7 @@
             line-height: 1.6;
             color: var(--text-color);
             background: var(--bg-color);
+            transition: var(--theme-transition);
         }
 
         .container {
@@ -35,23 +57,35 @@
             background: var(--secondary-bg);
             padding: 2rem 0;
             margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hero {
             text-align: center;
-            padding: 3rem 0;
+            padding: 4rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 1.25rem;
-            color: #4b5563;
+            font-size: 1.5rem;
+            color: var(--text-color);
             margin-bottom: 2rem;
+            opacity: 0.9;
         }
 
         .features {
@@ -62,65 +96,201 @@
         }
 
         .feature {
-            background: var(--secondary-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         .feature h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .cta {
-            display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
+        .feature ul {
+            list-style: none;
             margin-top: 1rem;
         }
 
+        .feature li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature li::before {
+            content: "→";
+            color: var(--primary-color);
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+        }
+
         .cta:hover {
-            opacity: 0.9;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.3);
         }
 
         .docs-section {
-            margin: 3rem 0;
+            margin: 4rem 0;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
         }
 
         code {
-            background: var(--secondary-bg);
+            font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+            background: var(--code-bg);
+            color: var(--code-text);
             padding: 0.2rem 0.4rem;
             border-radius: 4px;
-            font-family: monospace;
+            font-size: 0.9em;
         }
 
         pre {
-            background: var(--secondary-bg);
-            padding: 1rem;
-            border-radius: 8px;
+            background: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
             overflow-x: auto;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            padding: 0;
+            background: none;
+            color: var(--code-text);
+        }
+
+        .copy-button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--code-text);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .code-block {
+            position: relative;
         }
 
         footer {
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
             background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .feature {
+                padding: 1.5rem;
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: var(--theme-transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <header>
         <div class="container">
             <div class="hero">
                 <h1>Superclass</h1>
                 <p class="subtitle">AI-Powered Document Classification System</p>
-                <a href="https://github.com/adaptive-scale/superclass" class="cta">View on GitHub</a>
+                <a href="https://github.com/adaptive-scale/superclass" class="cta">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
             </div>
         </div>
     </header>
@@ -128,7 +298,7 @@
     <main class="container">
         <div class="features">
             <div class="feature">
-                <h3>Multi-Format Support</h3>
+                <h3><i class="fas fa-file-alt"></i> Multi-Format Support</h3>
                 <ul>
                     <li>PDF documents</li>
                     <li>Microsoft Office files</li>
@@ -139,7 +309,7 @@
                 </ul>
             </div>
             <div class="feature">
-                <h3>AI Classification</h3>
+                <h3><i class="fas fa-brain"></i> AI Classification</h3>
                 <ul>
                     <li>OpenAI GPT models</li>
                     <li>Anthropic Claude</li>
@@ -148,7 +318,7 @@
                 </ul>
             </div>
             <div class="feature">
-                <h3>Easy Deployment</h3>
+                <h3><i class="fas fa-rocket"></i> Easy Deployment</h3>
                 <ul>
                     <li>Docker support</li>
                     <li>Multi-arch builds</li>
@@ -161,24 +331,85 @@
         <div class="docs-section">
             <h2>Quick Start</h2>
             <p>Pull and run using Docker:</p>
-            <pre><code>docker pull ghcr.io/adaptive-scale/superclass:latest
+            <div class="code-block">
+                <pre><code>docker pull ghcr.io/adaptive-scale/superclass:latest
 
 docker run -p 8083:8083 \
   -e OPENAI_API_KEY=your_openai_key \
   ghcr.io/adaptive-scale/superclass:latest</code></pre>
+                <button class="copy-button" onclick="copyCode(this)">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
             
             <h2>API Usage</h2>
             <p>Classify a document:</p>
-            <pre><code>curl -X POST \
+            <div class="code-block">
+                <pre><code>curl -X POST \
   -F "file=@/path/to/document.pdf" \
   http://localhost:8083/classify</code></pre>
+                <button class="copy-button" onclick="copyCode(this)">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>Made with ❤️ by <a href="https://github.com/adaptive-scale">Adaptive Scale</a></p>
+            <p>Made with <i class="fas fa-heart" style="color: #ef4444;"></i> by <a href="https://github.com/adaptive-scale">Adaptive Scale</a></p>
         </div>
     </footer>
+
+    <script>
+        // Theme handling
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            const icon = document.querySelector('.theme-toggle i');
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+
+        // Initialize theme
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+
+        // Code copy functionality
+        function copyCode(button) {
+            const pre = button.parentElement.querySelector('pre');
+            const code = pre.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i>';
+                }, 2000);
+            });
+        }
+
+        // Initialize theme when the page loads
+        initializeTheme();
+    </script>
 </body>
 </html> 
