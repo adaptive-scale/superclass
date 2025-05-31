@@ -1,4 +1,5 @@
 # Superclass
+<img width="339" alt="Screenshot 2025-05-31 at 02 00 42" src="https://github.com/user-attachments/assets/5e4ed7d5-082f-4bcd-aad2-fa7d6755ce5b" />
 
 Superclass is a powerful document analysis tool that combines advanced text extraction with AI-powered classification. It supports multiple document formats and provides both a CLI and HTTP server interface.
 
@@ -28,6 +29,14 @@ Superclass is a powerful document analysis tool that combines advanced text extr
   - Content summarization
   - Keyword extraction
 - Model comparison capabilities
+- Advanced feature extraction:
+  - Basic statistics (word count, character count, etc.)
+  - Language metrics (readability, technicality, formality)
+  - Named entity recognition
+  - Document structure analysis
+  - Sentiment analysis
+  - Content complexity assessment
+  - Vocabulary richness analysis
 
 ### Deployment Options
 - Command-line interface
@@ -130,15 +139,49 @@ Classify a document:
 # Basic classification
 curl -X POST -F "file=@/path/to/document.pdf" http://localhost:8083/classify
 
+# Classification with feature extraction
+curl -X POST -F "file=@/path/to/document.pdf" -F "extract_features=true" http://localhost:8080/classify
 ```
 
-Response:
+Response with features:
 ```json
 {
   "category": "Technical Documentation",
   "confidence": 0.95,
   "summary": "This document describes...",
   "keywords": ["keyword1", "keyword2"],
+  "features": {
+    "word_count": 1250,
+    "char_count": 6800,
+    "sentence_count": 85,
+    "avg_word_length": 5.4,
+    "unique_word_count": 450,
+    "paragraph_count": 25,
+    "top_keywords": ["api", "documentation", "endpoints"],
+    "named_entities": [
+      {"text": "OpenAI", "label": "ORGANIZATION"},
+      {"text": "GPT-4", "label": "PRODUCT"}
+    ],
+    "sentiment_score": 0.2,
+    "language_metrics": {
+      "readability_score": 65.5,
+      "technicality_score": 0.8,
+      "formality_score": 0.7,
+      "vocabulary_richness": 0.65
+    },
+    "content_structure": {
+      "heading_count": 12,
+      "list_count": 8,
+      "table_count": 2,
+      "code_block_count": 5,
+      "image_count": 3,
+      "heading_hierarchy": [
+        "Introduction",
+        "API Reference",
+        "Authentication"
+      ]
+    }
+  },
   "raw_text": "Optional extracted text..."
 }
 ```
@@ -148,6 +191,62 @@ Health check endpoint:
 ```bash
 curl http://localhost:8083/health
 ```
+
+#### POST /features
+Extract detailed features from a document without classification:
+```bash
+# Basic feature extraction
+curl -X POST -F "file=@/path/to/document.pdf" http://localhost:8080/features
+
+# Feature extraction with specific model
+curl -X POST \
+  -F "file=@/path/to/document.pdf" \
+  -F "model_provider=anthropic" \
+  -F "model_type=claude-3-opus" \
+  http://localhost:8080/features
+```
+
+Response:
+```json
+{
+  "word_count": 1250,
+  "char_count": 6800,
+  "sentence_count": 85,
+  "avg_word_length": 5.4,
+  "unique_word_count": 450,
+  "paragraph_count": 25,
+  "top_keywords": ["api", "documentation", "endpoints"],
+  "named_entities": [
+    {"text": "OpenAI", "label": "ORGANIZATION"},
+    {"text": "GPT-4", "label": "PRODUCT"}
+  ],
+  "sentiment_score": 0.2,
+  "language_metrics": {
+    "readability_score": 65.5,
+    "technicality_score": 0.8,
+    "formality_score": 0.7,
+    "vocabulary_richness": 0.65
+  },
+  "content_structure": {
+    "heading_count": 12,
+    "list_count": 8,
+    "table_count": 2,
+    "code_block_count": 5,
+    "image_count": 3,
+    "heading_hierarchy": [
+      "Introduction",
+      "API Reference",
+      "Authentication"
+    ]
+  }
+}
+```
+
+Parameters:
+- `file`: The document file to analyze (required)
+- `model_provider`: AI provider to use (optional, defaults to environment setting)
+- `model_type`: Specific model to use (optional, defaults to environment setting)
+- `raw_text`: Include extracted text in response (optional, default: false)
 
 ## Configuration
 
@@ -163,6 +262,8 @@ curl http://localhost:8083/health
 - `MODEL_PROVIDER`: AI provider to use (default: openai)
 - `MAX_COST`: Maximum cost per request (default: 0.1)
 - `MAX_LATENCY`: Maximum latency in seconds (default: 30)
+- `EXTRACT_FEATURES`: Enable feature extraction by default (default: false)
+- `FEATURE_MODEL`: Model to use for feature extraction (default: same as MODEL_TYPE)
 
 #### Classification Configuration
 - `PREDEFINED_CATEGORIES`: Comma-separated list of allowed categories (e.g., "Technology,Business,Science")
@@ -196,7 +297,7 @@ MAX_COST=0.1
 MAX_LATENCY=30
 
 # Classification Configuration
-PREDEFINED_CATEGORIES=Technology,Business,Science,Health,Entertainment
+PREDEFINED_CATEGORIES=Technology,Business,Science
 ENFORCE_CATEGORIES=true
 
 # API Keys
