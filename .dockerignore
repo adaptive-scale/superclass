@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+bin/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test files
+*_test.go
+*.test
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Debug files
+debug/
+
+# Dependencies
+vendor/ 

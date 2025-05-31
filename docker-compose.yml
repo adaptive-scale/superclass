@@ -1,0 +1,29 @@
+services:
+  superclass:
+    image: superclass:latest
+    ports:
+      - "8083:8083"
+    environment:
+      - PORT=8083
+      # Model configuration
+      - MODEL_TYPE=${MODEL_TYPE:-gpt-4}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - MODEL_PROVIDER=${MODEL_PROVIDER:-openai}
+      - MAX_COST=${MAX_COST:-0.1}
+      - MAX_LATENCY=${MAX_LATENCY:-30}
+      # Classification configuration
+      - PREDEFINED_CATEGORIES=${PREDEFINED_CATEGORIES:-}  # Comma-separated list of allowed categories
+      - ENFORCE_CATEGORIES=${ENFORCE_CATEGORIES:-false}   # Whether to strictly enforce predefined categories
+      # API Keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  uploads: 
