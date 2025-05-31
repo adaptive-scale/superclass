@@ -1,5 +1,7 @@
 # Superclass
 
+![Superclass](imag.png)
+
 Superclass is a powerful document analysis tool that combines advanced text extraction with AI-powered classification. It supports multiple document formats and provides both a CLI and HTTP server interface.
 
 ## Features
